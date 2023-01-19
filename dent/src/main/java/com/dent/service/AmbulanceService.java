@@ -6,7 +6,7 @@ import com.dent.model.dto.seed.AmbulanceSeedDTO;
 import java.util.Collection;
 
 public interface AmbulanceService {
-    Integer count();
+    Long count();
     Collection<AmbulanceExposeDTO> findAll();
     AmbulanceExposeDTO findById(Long id);
     AmbulanceExposeDTO create(AmbulanceSeedDTO ambulanceSeedDTO);

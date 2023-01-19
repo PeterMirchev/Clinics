@@ -2,6 +2,8 @@ package com.dent.model.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,11 +16,11 @@ public class Clinic {
     private String name;
     private String address;
     @OneToMany
-    private Set<Ambulance> ambulances;
+    private Set<Ambulance> ambulances = new HashSet<>();
     @OneToMany
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();;
     @OneToMany
-    private Set<Ward> wards;
+    private Set<Ward> wards = new HashSet<>();;
     @ManyToOne
     private City city;
 }

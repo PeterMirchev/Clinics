@@ -6,7 +6,7 @@ import com.dent.model.dto.seed.CitySeedDTO;
 import java.util.Collection;
 
 public interface CityService {
-    Integer count();
+    long count();
     Collection<CityExposeDTO> findAll();
     CityExposeDTO findById(Long id);
     CityExposeDTO create(CitySeedDTO citySeedDTO);

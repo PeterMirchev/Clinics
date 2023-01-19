@@ -3,6 +3,8 @@ import com.dent.model.enums.WardType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +15,7 @@ public class Ward {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToMany
-    private Set<Doctor> doctors;
+    private Set<Doctor> doctors = new HashSet<>();;
     @Enumerated(EnumType.STRING)
     private WardType wardType;
 }

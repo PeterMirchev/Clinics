@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,5 +15,5 @@ public class City {
     private Long id;
     private String name;
     @OneToMany
-    private List<Clinic> clinics;
+    private List<Clinic> clinics = new ArrayList<>();
 }
