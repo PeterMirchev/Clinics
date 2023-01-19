@@ -15,7 +15,7 @@ public class Ward {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToMany
-    private Set<Doctor> doctors = new HashSet<>();;
+    private Set<Doctor> doctors = new HashSet<>();
     @Enumerated(EnumType.STRING)
     private WardType wardType;
 }

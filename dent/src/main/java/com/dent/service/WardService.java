@@ -6,7 +6,7 @@ import com.dent.model.dto.seed.WardSeedDTO;
 import java.util.Collection;
 
 public interface WardService {
-    Integer count();
+    Long count();
     Collection<WardExposeDTO> findAll();
     WardExposeDTO findById(Long id);
     WardExposeDTO create(WardSeedDTO wardSeedDTO);

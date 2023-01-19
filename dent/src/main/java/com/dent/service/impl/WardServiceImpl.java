@@ -1,40 +1,66 @@
 package com.dent.service.impl;
+import com.dent.exception.ExceptionMessages;
+import com.dent.exception.NonExistingEntityException;
 import com.dent.model.dto.expose.WardExposeDTO;
 import com.dent.model.dto.seed.WardSeedDTO;
+import com.dent.model.entity.Ward;
+import com.dent.repository.WardRepository;
 import com.dent.service.WardService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 public class WardServiceImpl implements WardService {
+    private final WardRepository wardRepository;
+    private final ModelMapper modelMapper;
+
+    public WardServiceImpl(WardRepository wardRepository, ModelMapper modelMapper) {
+        this.wardRepository = wardRepository;
+        this.modelMapper = modelMapper;
+    }
+
     @Override
-    public Integer count() {
-        return null;
+    public Long count() {
+        return wardRepository.count();
     }
 
     @Override
     public Collection<WardExposeDTO> findAll() {
-        return null;
+        return wardRepository.findAll()
+                .stream()
+                .map((dto -> modelMapper.map(dto, WardExposeDTO.class)))
+                .collect(Collectors.toList());
     }
 
     @Override
     public WardExposeDTO findById(Long id) {
-        return null;
+        return wardRepository.findById(id)
+                .map(dto -> modelMapper.map(dto, WardExposeDTO.class))
+                .orElseThrow(() -> new NonExistingEntityException(String.format(ExceptionMessages.WARD_DOES_NOT_EXIST, id)));
     }
 
     @Override
     public WardExposeDTO create(WardSeedDTO wardSeedDTO) {
-        return null;
+        Ward ward = wardRepository.save(modelMapper.map(wardSeedDTO, Ward.class));
+        return modelMapper.map(ward, WardExposeDTO.class);
     }
 
     @Override
     public WardExposeDTO update(WardSeedDTO wardSeedDTO, Long id) {
-        return null;
+        Ward ward = wardRepository.findById(id).orElseThrow(() -> new NonExistingEntityException(String.format(ExceptionMessages.WARD_DOES_NOT_EXIST, id)));
+        modelMapper.map(wardSeedDTO, ward);
+        wardRepository.save(ward);
+        return modelMapper.map(ward, WardExposeDTO.class);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        if (!wardRepository.existsById(id)) {
+            throw new NonExistingEntityException(String.format(ExceptionMessages.RESOURCE_WITH_ID_DOES_NOT_EXIST, id));
+        }
+        wardRepository.deleteById(id);
     }
 }
