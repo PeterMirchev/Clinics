@@ -1,6 +1,7 @@
 package com.dent.service;
 
 import com.dent.model.dto.expose.CityExposeDTO;
+import com.dent.model.dto.expose.ClinicExposeDTO;
 import com.dent.model.dto.seed.CitySeedDTO;
 
 import java.util.Collection;

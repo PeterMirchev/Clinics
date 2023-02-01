@@ -16,4 +16,5 @@ public class Doctor extends User{
     private Qualification qualification;
     private boolean onDuty;
 
+
 }

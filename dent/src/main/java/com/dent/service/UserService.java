@@ -6,8 +6,7 @@ import com.dent.model.dto.seed.UserSeedDTO;
 import java.util.Collection;
 
 public interface UserService {
-    Integer count();
-    Integer countAdministrators(String administrators);
+    Long count();
     Collection<UserExposeDTO> findAll();
     UserExposeDTO findById(Long id);
     UserExposeDTO create(UserSeedDTO userSeedDTO);

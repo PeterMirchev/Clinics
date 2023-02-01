@@ -3,6 +3,7 @@ import com.dent.exception.ExceptionMessages;
 import com.dent.exception.NonExistingEntityException;
 import com.dent.model.dto.expose.WardExposeDTO;
 import com.dent.model.dto.seed.WardSeedDTO;
+import com.dent.model.entity.Doctor;
 import com.dent.model.entity.Ward;
 import com.dent.repository.WardRepository;
 import com.dent.service.WardService;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class WardServiceImpl implements WardService {
     private final WardRepository wardRepository;
     private final ModelMapper modelMapper;
+
 
     public WardServiceImpl(WardRepository wardRepository, ModelMapper modelMapper) {
         this.wardRepository = wardRepository;
@@ -63,4 +65,5 @@ public class WardServiceImpl implements WardService {
         }
         wardRepository.deleteById(id);
     }
+
 }

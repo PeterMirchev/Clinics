@@ -1,5 +1,4 @@
 package com.dent.web;
-
 import com.dent.exception.ExceptionMessages;
 import com.dent.exception.InvalidEntityDataException;
 import com.dent.exception.NonExistingEntityException;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
 import java.util.List;
 
 @ControllerAdvice

@@ -2,16 +2,19 @@ package com.dent.service.impl;
 import com.dent.exception.ExceptionMessages;
 import com.dent.exception.NonExistingEntityException;
 import com.dent.model.dto.expose.CityExposeDTO;
+import com.dent.model.dto.expose.ClinicExposeDTO;
 import com.dent.model.dto.seed.CitySeedDTO;
 import com.dent.model.entity.City;
+import com.dent.model.entity.Clinic;
 import com.dent.repository.CityRepository;
 import com.dent.service.CityService;
+import com.dent.service.ClinicService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,11 +22,11 @@ public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
     private final ModelMapper modelMapper;
 
+
     @Autowired
     public CityServiceImpl(CityRepository cityRepository, ModelMapper modelMapper) {
         this.cityRepository = cityRepository;
         this.modelMapper = modelMapper;
-
     }
 
     @Override

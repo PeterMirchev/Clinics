@@ -61,4 +61,6 @@ public class WardRestController {
         wardService.deleteById(id);
         return new ResponseEntity<>(CommonMessages.SUCCESSFULLY_DELETED_RESOURCE, HttpStatus.OK);
     }
+
+
 }

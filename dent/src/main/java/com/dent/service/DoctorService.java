@@ -6,7 +6,7 @@ import com.dent.model.dto.seed.DoctorSeedDTO;
 import java.util.Collection;
 
 public interface DoctorService {
-    Integer count();
+    Long count();
     Collection<DoctorExposeDTO> findAll();
     DoctorExposeDTO findById(Long id);
     DoctorExposeDTO create(DoctorSeedDTO doctorSeedDTO);

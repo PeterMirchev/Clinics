@@ -12,4 +12,5 @@ public interface WardService {
     WardExposeDTO create(WardSeedDTO wardSeedDTO);
     WardExposeDTO update(WardSeedDTO wardSeedDTO, Long id);
     void deleteById(Long id);
+
 }

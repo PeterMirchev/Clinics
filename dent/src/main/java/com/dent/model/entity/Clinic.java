@@ -15,6 +15,8 @@ public class Clinic {
     private Long id;
     private String name;
     private String address;
+    private String email;
+    private String phone;
     @OneToMany
     private Set<Ambulance> ambulances = new HashSet<>();
     @OneToMany
