@@ -1,5 +1,6 @@
 package com.dent.model.enums;
 
 public enum Role {
-    ADMINISTRATOR
+    ADMINISTRATOR,
+    BASIC
 }

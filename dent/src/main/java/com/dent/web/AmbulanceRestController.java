@@ -43,7 +43,10 @@ public class AmbulanceRestController {
         handleValidationErrors(errors);
         AmbulanceExposeDTO ambulanceExposeDTO = ambulanceService.create(ambulanceSeedDTO);
         return ResponseEntity
-                .created(ServletUriComponentsBuilder.fromCurrentRequest().pathSegment("{id}").buildAndExpand(ambulanceExposeDTO.getId()).toUri())
+                .created(ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .pathSegment("{id}")
+                        .buildAndExpand(ambulanceExposeDTO.getId()).toUri())
                 .body(ambulanceExposeDTO);
     }
 

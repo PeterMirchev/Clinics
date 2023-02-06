@@ -4,7 +4,10 @@ import com.dent.exception.ExceptionMessages;
 import com.dent.exception.NonExistingEntityException;
 import com.dent.model.dto.expose.UserExposeDTO;
 import com.dent.model.dto.seed.UserSeedDTO;
+import com.dent.model.entity.Doctor;
 import com.dent.model.entity.User;
+import com.dent.model.enums.Role;
+import com.dent.model.enums.UserType;
 import com.dent.repository.UserRepository;
 import com.dent.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -29,8 +32,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Collection<UserExposeDTO> findAll() {
-        return userRepository.findAll()
+    public Collection<UserExposeDTO> findAll(UserType userType, Role role) {
+        return userRepository.findAll(role, userType)
                 .stream()
                 .map(dto -> modelMapper.map(dto, UserExposeDTO.class))
                 .collect(Collectors.toList());
@@ -45,7 +48,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserExposeDTO create(UserSeedDTO userSeedDTO) {
-        return null;
+        User userToBePersisted = modelMapper.map(userSeedDTO, userSeedDTO.getUserType().equals(UserType.DOCTOR) ? Doctor.class : User.class);
+        userToBePersisted.getRole().add(Role.BASIC);
+        return modelMapper.map(userRepository.save(userToBePersisted), UserExposeDTO.class);
     }
 
     @Override

@@ -3,6 +3,8 @@ import com.dent.exception.ExceptionMessages;
 import com.dent.exception.InvalidEntityDataException;
 import com.dent.exception.NonExistingEntityException;
 import com.dent.model.dto.expose.ExceptionResponseDTO;
+import jakarta.servlet.http.PushBuilder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -35,5 +37,18 @@ public class ExceptionHandlerControllerAdvice {
         return ResponseEntity
                 .badRequest()
                 .body(new ExceptionResponseDTO(HttpStatus.BAD_REQUEST.value(), ExceptionMessages.INVALID_DATA_PROVIDED, fieldErrorMessages));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ExceptionResponseDTO> handleSqlIntegrityException(DataIntegrityViolationException exception) {
+        String e = exception.getCause().getCause().getLocalizedMessage();
+        if (e.startsWith("Duplicate entry")) {
+            e = e.split(" for key ")[0];
+        } else {
+            e = exception.getMessage();
+        }
+        return ResponseEntity
+                .badRequest()
+                .body(new ExceptionResponseDTO(HttpStatus.BAD_REQUEST.value(), e));
     }
 }

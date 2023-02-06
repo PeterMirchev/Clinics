@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.dent.model.enums.UserType;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +11,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,4 +24,6 @@ public abstract class User {
     private String phone;
     @Column(unique = true)
     private String email;
+    private Integer age;
+    private String address;
 }
