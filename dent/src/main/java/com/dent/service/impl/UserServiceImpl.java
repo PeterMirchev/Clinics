@@ -11,15 +11,20 @@ import com.dent.model.enums.UserType;
 import com.dent.repository.UserRepository;
 import com.dent.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Scope()
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+
     public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
@@ -42,7 +47,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserExposeDTO findById(Long id) {
         return userRepository.findById(id)
-                .map(dto -> modelMapper.map(dto, UserExposeDTO.class))
+                .filter(u -> !u.isDeleted())
+                .map(dto ->  modelMapper.map(dto, UserExposeDTO.class))
                 .orElseThrow(() -> new NonExistingEntityException(String.format(ExceptionMessages.USER_DOES_NOT_EXIST, id)));
     }
 
@@ -55,11 +61,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserExposeDTO update(UserSeedDTO userSeedDTO, Long id) {
-        return null;
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NonExistingEntityException(String.format(ExceptionMessages.USER_DOES_NOT_EXIST, id)));
+        modelMapper.map(userSeedDTO, user);
+        userRepository.save(user);
+        return modelMapper.map(user, UserExposeDTO.class);
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
+        userRepository.setDeleteStatus(id, true);
 
     }
 }

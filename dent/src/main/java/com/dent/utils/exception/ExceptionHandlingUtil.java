@@ -1,4 +1,4 @@
-package com.dent.utils;
+package com.dent.utils.exception;
 
 import com.dent.exception.ExceptionMessages;
 import com.dent.exception.InvalidEntityDataException;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ErrorHandlingUtil {
+public class ExceptionHandlingUtil {
     public static void handleValidationErrors(Errors errors) {
         if(errors.hasErrors()) {
             List<String> fieldErrorMessages = errors.getFieldErrors()

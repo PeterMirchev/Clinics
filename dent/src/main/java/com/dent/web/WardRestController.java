@@ -2,7 +2,7 @@ package com.dent.web;
 import com.dent.model.dto.expose.WardExposeDTO;
 import com.dent.model.dto.seed.WardSeedDTO;
 import com.dent.service.WardService;
-import com.dent.utils.CommonMessages;
+import com.dent.utils.common.CommonMessages;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Collection;
 
-import static com.dent.utils.ErrorHandlingUtil.handleValidationErrors;
+import static com.dent.utils.exception.ExceptionHandlingUtil.handleValidationErrors;
 
 @RestController
 @RequestMapping("/wards")

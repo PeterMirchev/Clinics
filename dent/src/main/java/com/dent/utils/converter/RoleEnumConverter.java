@@ -1,4 +1,4 @@
-package com.dent.utils;
+package com.dent.utils.converter;
 
 import com.dent.model.enums.Role;
 import org.springframework.core.convert.converter.Converter;

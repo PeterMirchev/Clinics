@@ -26,4 +26,5 @@ public class User {
     private String email;
     private Integer age;
     private String address;
+    private boolean isDeleted;
 }

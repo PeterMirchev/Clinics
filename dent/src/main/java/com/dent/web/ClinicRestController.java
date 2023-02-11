@@ -12,7 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import static com.dent.utils.ErrorHandlingUtil.handleValidationErrors;
+import static com.dent.utils.exception.ExceptionHandlingUtil.handleValidationErrors;
 
 @RestController
 @RequestMapping("/clinics")

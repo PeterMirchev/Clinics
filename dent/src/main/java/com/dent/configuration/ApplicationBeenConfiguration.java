@@ -1,7 +1,7 @@
 package com.dent.configuration;
 
-import com.dent.utils.RoleEnumConverter;
-import com.dent.utils.UserTypeEnumConverter;
+import com.dent.utils.converter.RoleEnumConverter;
+import com.dent.utils.converter.UserTypeEnumConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
