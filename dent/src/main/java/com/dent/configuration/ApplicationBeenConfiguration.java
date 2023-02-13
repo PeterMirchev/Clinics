@@ -1,5 +1,4 @@
 package com.dent.configuration;
-
 import com.dent.utils.converter.RoleEnumConverter;
 import com.dent.utils.converter.UserTypeEnumConverter;
 import org.modelmapper.ModelMapper;

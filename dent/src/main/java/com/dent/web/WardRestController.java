@@ -11,7 +11,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Collection;
-
 import static com.dent.utils.exception.ExceptionHandlingUtil.handleValidationErrors;
 
 @RestController
@@ -59,7 +58,7 @@ public class WardRestController {
     @DeleteMapping("{id:\\d+}")
     public ResponseEntity<String> deleteById(@PathVariable("id") Long id){
         wardService.deleteById(id);
-        return new ResponseEntity<>(CommonMessages.SUCCESSFULLY_DELETED_RESOURCE, HttpStatus.OK);
+        return ResponseEntity.ok("Successfully Deleted Ward.");
     }
 
 

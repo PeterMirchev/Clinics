@@ -14,4 +14,5 @@ public class Ambulance {
     private boolean vehicleAvailability;
     @ManyToOne
     private Clinic clinic;
+    private boolean isDeleted;
 }

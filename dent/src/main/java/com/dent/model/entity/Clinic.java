@@ -25,4 +25,5 @@ public class Clinic {
     private Set<Ward> wards = new HashSet<>();;
     @ManyToOne
     private City city;
+    private boolean isDeleted;
 }

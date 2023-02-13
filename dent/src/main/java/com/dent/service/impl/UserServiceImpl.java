@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserExposeDTO findById(Long id) {
         return userRepository.findById(id)
-                .filter(u -> !u.isDeleted())
                 .map(dto ->  modelMapper.map(dto, UserExposeDTO.class))
                 .orElseThrow(() -> new NonExistingEntityException(String.format(ExceptionMessages.USER_DOES_NOT_EXIST, id)));
     }
@@ -72,6 +71,5 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteById(Long id) {
         userRepository.setDeleteStatus(id, true);
-
     }
 }

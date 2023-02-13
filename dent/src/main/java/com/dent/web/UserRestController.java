@@ -24,6 +24,11 @@ public class UserRestController {
         this.userService = userService;
     }
 
+    @GetMapping("/count")
+    public Long count() {
+        return userService.count();
+    }
+
     @GetMapping()
     public Collection<UserExposeDTO> findAll(@RequestParam(name = "type", required = false) UserType userType,
                                              @RequestParam(name = "role", required = false) Role role) {
@@ -57,11 +62,6 @@ public class UserRestController {
     public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return ResponseEntity.ok("Successfully Deleted User.");
-    }
-
-    @GetMapping("/count")
-    public Long count() {
-        return userService.count();
     }
 
 }

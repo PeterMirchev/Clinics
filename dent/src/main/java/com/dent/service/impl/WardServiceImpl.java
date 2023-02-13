@@ -3,13 +3,12 @@ import com.dent.exception.ExceptionMessages;
 import com.dent.exception.NonExistingEntityException;
 import com.dent.model.dto.expose.WardExposeDTO;
 import com.dent.model.dto.seed.WardSeedDTO;
-import com.dent.model.entity.Doctor;
 import com.dent.model.entity.Ward;
 import com.dent.repository.WardRepository;
 import com.dent.service.WardService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -59,11 +58,9 @@ public class WardServiceImpl implements WardService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
-        if (!wardRepository.existsById(id)) {
-            throw new NonExistingEntityException(String.format(ExceptionMessages.RESOURCE_WITH_ID_DOES_NOT_EXIST, id));
-        }
-        wardRepository.deleteById(id);
+        wardRepository.setDeleteStatus(id, true);
     }
 
 }

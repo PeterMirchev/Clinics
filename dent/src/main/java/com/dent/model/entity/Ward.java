@@ -10,6 +10,7 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Ward {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +19,5 @@ public class Ward {
     private Set<Doctor> doctors = new HashSet<>();
     @Enumerated(EnumType.STRING)
     private WardType wardType;
+    private boolean isDeleted;
 }

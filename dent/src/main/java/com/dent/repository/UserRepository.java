@@ -10,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -37,4 +39,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
           WHERE u.isDeleted = false 
            """)
     long count();
+
+    @Query("""
+           SELECT u
+           FROM User u
+           WHERE u.id = :id
+           AND u.isDeleted = false 
+            """)
+    @Override
+     Optional<User> findById(@Param("id") Long id);
+
 }

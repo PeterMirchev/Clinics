@@ -16,4 +16,5 @@ public class City {
     private String name;
     @OneToMany
     private List<Clinic> clinics = new ArrayList<>();
+    private boolean isDeleted;
 }
