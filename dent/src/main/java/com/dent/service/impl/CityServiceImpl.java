@@ -2,19 +2,16 @@ package com.dent.service.impl;
 import com.dent.exception.ExceptionMessages;
 import com.dent.exception.NonExistingEntityException;
 import com.dent.model.dto.expose.CityExposeDTO;
-import com.dent.model.dto.expose.ClinicExposeDTO;
 import com.dent.model.dto.seed.CitySeedDTO;
 import com.dent.model.entity.City;
-import com.dent.model.entity.Clinic;
 import com.dent.repository.CityRepository;
 import com.dent.service.CityService;
-import com.dent.service.ClinicService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +33,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public Collection<CityExposeDTO> findAll() {
-        return cityRepository.findAll()
+        return cityRepository.findALl()
                 .stream().map(dto -> modelMapper.map(dto, CityExposeDTO.class))
                 .collect(Collectors.toList());
     }
@@ -63,10 +60,8 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
-        if (!cityRepository.existsById(id)) {
-            throw new NonExistingEntityException(String.format(ExceptionMessages.RESOURCE_WITH_ID_DOES_NOT_EXIST, id));
-        }
-        cityRepository.deleteById(id);
+        cityRepository.setDeleteStatus(id, true);
     }
 }

@@ -9,6 +9,7 @@ import com.dent.repository.AmbulanceRepository;
 import com.dent.service.AmbulanceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -59,10 +60,8 @@ public class AmbulanceServiceImpl implements AmbulanceService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
-        if (!ambulanceRepository.existsById(id)) {
-            throw new NonExistingEntityException(String.format(ExceptionMessages.AMBULANCE_DOES_NOT_EXIST, id));
-        }
-        ambulanceRepository.deleteById(id);
+        ambulanceRepository.setDeletedStatus(id, true);
     }
 }

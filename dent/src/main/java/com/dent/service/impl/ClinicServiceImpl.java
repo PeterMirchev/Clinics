@@ -10,6 +10,7 @@ import com.dent.service.ClinicService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -59,7 +60,8 @@ public class ClinicServiceImpl implements ClinicService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
-
+        clinicRepository.setDeleteStatus(id, true);
     }
 }

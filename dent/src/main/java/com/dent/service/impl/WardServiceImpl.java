@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.stream.Collectors;
-
 @Service
 public class WardServiceImpl implements WardService {
     private final WardRepository wardRepository;
@@ -62,5 +61,6 @@ public class WardServiceImpl implements WardService {
     public void deleteById(Long id) {
         wardRepository.setDeleteStatus(id, true);
     }
+
 
 }

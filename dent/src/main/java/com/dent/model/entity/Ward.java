@@ -10,7 +10,6 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Ward {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
