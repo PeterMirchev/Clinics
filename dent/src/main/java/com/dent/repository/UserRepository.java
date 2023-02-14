@@ -1,5 +1,7 @@
 package com.dent.repository;
 
+import com.dent.model.dto.expose.DoctorExposeDTO;
+import com.dent.model.dto.seed.DoctorSeedDTO;
 import com.dent.model.entity.User;
 import com.dent.model.enums.Role;
 import com.dent.model.enums.UserType;

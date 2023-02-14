@@ -11,5 +11,8 @@ public interface ClinicService {
     ClinicExposeDTO findById(Long id);
     ClinicExposeDTO create(ClinicSeedDTO clinicSeedDTO);
     ClinicExposeDTO update(ClinicSeedDTO clinicSeedDTO, Long id);
+
+    ClinicExposeDTO addAmbulance(Long clinicId, Long ambulanceId);
+    ClinicExposeDTO removeAmbulance(Long clinicId, Long ambulanceId);
     void deleteById(Long id);
 }

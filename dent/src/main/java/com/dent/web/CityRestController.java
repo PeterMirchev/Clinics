@@ -1,4 +1,5 @@
 package com.dent.web;
+
 import com.dent.model.dto.expose.CityExposeDTO;
 import com.dent.model.dto.seed.CitySeedDTO;
 import com.dent.service.CityService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import java.util.Collection;
 
 import static com.dent.utils.exception.ExceptionHandlingUtil.handleValidationErrors;
@@ -30,18 +32,18 @@ public class CityRestController {
     }
 
     @GetMapping()
-    public Collection<CityExposeDTO> findAll(){
+    public Collection<CityExposeDTO> findAll() {
         return cityService.findAll();
     }
 
     @GetMapping("/{id:\\d+}")
-    public ResponseEntity<CityExposeDTO> findById(@PathVariable("id") Long id){
+    public ResponseEntity<CityExposeDTO> findById(@PathVariable("id") Long id) {
         CityExposeDTO cityExposeDTO = cityService.findById(id);
         return ResponseEntity
                 .created(ServletUriComponentsBuilder
                         .fromCurrentRequest()
                         .pathSegment("{id}")
-                .buildAndExpand(cityExposeDTO.getId()).toUri()).body(cityExposeDTO);
+                        .buildAndExpand(cityExposeDTO.getId()).toUri()).body(cityExposeDTO);
     }
 
     @PostMapping
@@ -54,9 +56,22 @@ public class CityRestController {
     }
 
     @PutMapping("/{id:\\d+}")
-    public ResponseEntity<CityExposeDTO> update(@Valid @RequestBody CitySeedDTO citySeedDTO, @PathVariable("id") Long id, Errors errors){
+    public ResponseEntity<CityExposeDTO> update(@Valid @RequestBody CitySeedDTO citySeedDTO, @PathVariable("id") Long id, Errors errors) {
         handleValidationErrors(errors);
         CityExposeDTO cityExposeDTO = cityService.update(citySeedDTO, id);
+        return ResponseEntity.ok(cityExposeDTO);
+    }
+
+    @PostMapping("/{id:\\d+}/clinics")
+    public ResponseEntity<CityExposeDTO> addClinic(@PathVariable("id") Long cityId, @RequestParam(name = "clinicId") Long clinicId) {
+        CityExposeDTO cityExposeDTO = cityService.findById(cityId);
+        cityService.addClinic(cityId, clinicId);
+        return ResponseEntity.ok(cityExposeDTO);
+    }
+    @DeleteMapping("/{id:\\d+}/clinics")
+    public ResponseEntity<CityExposeDTO> removeClinic(@PathVariable("id") Long cityId, @RequestParam(name = "clinicId") Long clinicId) {
+        CityExposeDTO cityExposeDTO = cityService.findById(cityId);
+        cityService.removeClinic(cityId, clinicId);
         return ResponseEntity.ok(cityExposeDTO);
     }
 

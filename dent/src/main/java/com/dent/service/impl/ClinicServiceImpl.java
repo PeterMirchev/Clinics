@@ -4,7 +4,9 @@ import com.dent.exception.ExceptionMessages;
 import com.dent.exception.NonExistingEntityException;
 import com.dent.model.dto.expose.ClinicExposeDTO;
 import com.dent.model.dto.seed.ClinicSeedDTO;
+import com.dent.model.entity.Ambulance;
 import com.dent.model.entity.Clinic;
+import com.dent.repository.AmbulanceRepository;
 import com.dent.repository.ClinicRepository;
 import com.dent.service.ClinicService;
 import org.modelmapper.ModelMapper;
@@ -19,11 +21,15 @@ import java.util.stream.Collectors;
 public class ClinicServiceImpl implements ClinicService {
     private final ModelMapper modelMapper;
     private final ClinicRepository clinicRepository;
+    private final AmbulanceRepository ambulanceRepository;
 
     @Autowired
-    public ClinicServiceImpl(ModelMapper modelMapper, ClinicRepository clinicRepository) {
+    public ClinicServiceImpl(ModelMapper modelMapper,
+                             ClinicRepository clinicRepository,
+                             AmbulanceRepository ambulanceRepository) {
         this.modelMapper = modelMapper;
         this.clinicRepository = clinicRepository;
+        this.ambulanceRepository = ambulanceRepository;
     }
 
     @Override
@@ -55,6 +61,28 @@ public class ClinicServiceImpl implements ClinicService {
     public ClinicExposeDTO update(ClinicSeedDTO clinicSeedDTO, Long id) {
         Clinic clinic = clinicRepository.findById(id).orElseThrow(() -> new NonExistingEntityException(String.format(ExceptionMessages.CLINIC_DOES_NOT_EXIST, id)));
         modelMapper.map(clinicSeedDTO, clinic);
+        clinicRepository.save(clinic);
+        return modelMapper.map(clinic, ClinicExposeDTO.class);
+    }
+
+    @Override
+    public ClinicExposeDTO addAmbulance(Long clinicId, Long ambulanceId) {
+        Clinic clinic = clinicRepository.findById(clinicId)
+                .orElseThrow(() -> new NonExistingEntityException(String.format(ExceptionMessages.CLINIC_DOES_NOT_EXIST, clinicId)));
+        Ambulance ambulance = ambulanceRepository.findById(ambulanceId)
+                .orElseThrow(() -> new NonExistingEntityException(String.format(ExceptionMessages.AMBULANCE_DOES_NOT_EXIST, clinicId)));
+        clinic.getAmbulances().add(ambulance);
+        clinicRepository.save(clinic);
+        return modelMapper.map(clinic, ClinicExposeDTO.class);
+    }
+
+    @Override
+    public ClinicExposeDTO removeAmbulance(Long clinicId, Long ambulanceId) {
+        Clinic clinic = clinicRepository.findById(clinicId)
+                .orElseThrow(() -> new NonExistingEntityException(String.format(ExceptionMessages.CLINIC_DOES_NOT_EXIST, clinicId)));
+        Ambulance ambulance = ambulanceRepository.findById(ambulanceId)
+                .orElseThrow(() -> new NonExistingEntityException(String.format(ExceptionMessages.AMBULANCE_DOES_NOT_EXIST, clinicId)));
+        clinic.getAmbulances().remove(ambulance);
         clinicRepository.save(clinic);
         return modelMapper.map(clinic, ClinicExposeDTO.class);
     }

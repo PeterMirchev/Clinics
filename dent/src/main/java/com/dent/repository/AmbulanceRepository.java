@@ -32,7 +32,6 @@ public interface AmbulanceRepository extends JpaRepository<Ambulance, Long> {
     long count();
 
 
-
     @Query("""
            SELECT a
            FROM Ambulance a

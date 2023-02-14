@@ -11,6 +11,7 @@ public interface AmbulanceService {
     AmbulanceExposeDTO findById(Long id);
     AmbulanceExposeDTO create(AmbulanceSeedDTO ambulanceSeedDTO);
     AmbulanceExposeDTO update(AmbulanceSeedDTO ambulanceSeedDTO, Long id);
+
     void deleteById(Long id);
 
 

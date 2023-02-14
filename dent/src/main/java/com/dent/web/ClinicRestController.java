@@ -8,10 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.util.Collection;
 import java.util.stream.Collectors;
-
 import static com.dent.utils.exception.ExceptionHandlingUtil.handleValidationErrors;
 
 @RestController
@@ -60,4 +58,25 @@ public class ClinicRestController {
         ClinicExposeDTO clinicExposeDTO = clinicService.update(clinicSeedDTO, id);
         return ResponseEntity.ok(clinicExposeDTO);
     }
+
+    @PostMapping("/{id:\\d+}/ambulances")
+    public ResponseEntity<ClinicExposeDTO> addAmbulance(@PathVariable("id") Long clinicId, @RequestParam(name = "ambulanceId") Long ambulanceId) {
+        ClinicExposeDTO clinicExposeDTO = clinicService.findById(clinicId);
+        clinicService.addAmbulance(clinicId, ambulanceId);
+        return ResponseEntity.ok(clinicExposeDTO);
+    }
+
+    @DeleteMapping("/{id:\\d+}/ambulances")
+    public ResponseEntity<ClinicExposeDTO> removeAmbulance(@PathVariable("id") Long clinicId, @RequestParam(name = "ambulanceId") Long ambulanceId) {
+        ClinicExposeDTO clinicExposeDTO = clinicService.findById(clinicId);
+        clinicService.removeAmbulance(clinicId, ambulanceId);
+        return ResponseEntity.ok(clinicExposeDTO);
+    }
+
+    @DeleteMapping("{id:\\d+}")
+    public ResponseEntity<String> delete(@PathVariable("id") Long id) {
+        clinicService.deleteById(id);
+        return ResponseEntity.ok("Successfully Deleted Clinic.");
+    }
+
 }
