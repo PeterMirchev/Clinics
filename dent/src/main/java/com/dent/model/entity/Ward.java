@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,9 +14,8 @@ public class Ward {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToMany
-    private Set<Doctor> doctors = new HashSet<>();
     @Enumerated(EnumType.STRING)
     private WardType wardType;
+    private List<User> users = new ArrayList<>();
     private boolean isDeleted;
 }

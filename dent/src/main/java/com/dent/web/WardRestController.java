@@ -61,5 +61,18 @@ public class WardRestController {
         return ResponseEntity.ok("Successfully Deleted Ward.");
     }
 
+    @PostMapping("/{id:\\d+}/wards")
+    public ResponseEntity<WardExposeDTO> addUser(@PathVariable("id") Long wardId, @RequestParam(name = "userId") Long userId) {
+        WardExposeDTO wardExposeDTO = wardService.findById(wardId);
+        wardService.addUser(wardId, userId);
+        return ResponseEntity.ok(wardExposeDTO);
+    }
+
+    @DeleteMapping("/{id:\\d+}/wards")
+    public ResponseEntity<WardExposeDTO> removeUser(@PathVariable("id") Long wardId, @RequestParam(name = "userId") Long userId) {
+        WardExposeDTO wardExposeDTO = wardService.findById(wardId);
+        wardService.removeUser(wardId, userId);
+        return ResponseEntity.ok(wardExposeDTO);
+    }
 
 }

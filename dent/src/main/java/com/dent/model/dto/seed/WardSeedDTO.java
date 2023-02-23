@@ -1,6 +1,6 @@
 package com.dent.model.dto.seed;
 
-import com.dent.model.entity.Doctor;
+import com.dent.model.entity.User;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WardSeedDTO {
-    private Set<Doctor> doctors = new HashSet<>();
+    private Set<User> users = new HashSet<>();
     @NonNull
     @Size(min = 2)
     private String wardType;

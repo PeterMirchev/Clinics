@@ -7,10 +7,9 @@ import com.dent.model.enums.UserType;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
 @Data
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

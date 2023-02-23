@@ -1,10 +1,8 @@
 package com.dent.service.impl;
-
 import com.dent.exception.ExceptionMessages;
 import com.dent.exception.NonExistingEntityException;
 import com.dent.model.dto.expose.UserExposeDTO;
 import com.dent.model.dto.seed.UserSeedDTO;
-import com.dent.model.entity.Doctor;
 import com.dent.model.entity.User;
 import com.dent.model.enums.Role;
 import com.dent.model.enums.UserType;
@@ -53,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserExposeDTO create(UserSeedDTO userSeedDTO) {
-        User userToBePersisted = modelMapper.map(userSeedDTO, userSeedDTO.getUserType().equals(UserType.DOCTOR) ? Doctor.class : User.class);
+        User userToBePersisted = modelMapper.map(userSeedDTO, User.class);
         userToBePersisted.getRole().add(Role.BASIC);
         return modelMapper.map(userRepository.save(userToBePersisted), UserExposeDTO.class);
     }
