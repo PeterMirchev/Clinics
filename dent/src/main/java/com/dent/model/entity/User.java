@@ -17,6 +17,7 @@ public class User {
     private String firstName;
     private String lastName;
     @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = Role.class)
     private Set<Role> role = new HashSet<>();
     @Enumerated(EnumType.STRING)
     private UserType userType;

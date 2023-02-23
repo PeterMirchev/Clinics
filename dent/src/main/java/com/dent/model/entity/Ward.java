@@ -16,6 +16,7 @@ public class Ward {
     private long id;
     @Enumerated(EnumType.STRING)
     private WardType wardType;
+    @OneToMany
     private List<User> users = new ArrayList<>();
     private boolean isDeleted;
 }
