@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.dent.model.enums.UserType;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,5 +27,6 @@ public class User {
     private String email;
     private Integer age;
     private String address;
+    private Date dateRegistered = new Date();
     private boolean isDeleted;
 }
